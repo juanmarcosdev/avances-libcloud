@@ -17,8 +17,14 @@ driver = ComputeEngine(
 )
 
 images = driver.list_images()
-sizes = driver.list_sizes()
+#sizes = driver.list_sizes()
+#nodes = driver.list_nodes()
+#for elem in nodes:
+#    print(elem)
+#    print(elem.extra)
+print(images)
 
 #print([x for x in images if "ubuntu" in x.name])
 #print(sizes)
-print([x for x in sizes if "f1-micro" in x.name])
+#print([x for x in sizes if "f1-micro" in x.name])
+#print(nodes)
