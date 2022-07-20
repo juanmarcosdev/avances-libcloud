@@ -1,6 +1,8 @@
 from libcloud.compute.types import Provider
 from libcloud.compute.providers import get_driver
-from libcloud.compute.deployment import ScriptFileDeployment, ScriptDeployment
+
+from libcloud.loadbalancer.types import Provider as Provider_lb
+from libcloud.loadbalancer.providers import get_driver as get_driver_lb
 import os 
 
 SERVICE_ACCOUNT_USERNAME = "libcloud@multicloudloadbalancer.iam.gserviceaccount.com"
@@ -14,15 +16,26 @@ PRIVATE_SSH_KEY_PATH = os.path.expanduser("~/.ssh/id_rsa_gce")
 # the root user
 PUBLIC_SSH_KEY_PATH = os.path.expanduser("~/.ssh/id_rsa_gce.pub")
 
-ComputeEngine = get_driver(Provider.GCE)
+ComputeEngine = get_driver(Provider_lb.GCE)
+LoadBalancer = get_driver_lb(Provider_lb.GCE)
 # Note that the 'PEM file' argument can either be the JSON format or
 # the P12 format.
-driver = ComputeEngine(
+gce_driver = ComputeEngine(
     SERVICE_ACCOUNT_USERNAME,
     SERVICE_ACCOUNT_CREDENTIALS_JSON_FILE_PATH,
     project=PROJECT_ID,
-    datacenter="us-central1-a",
+    datacenter="us-central1-c",
 )
+
+print(gce_driver.list_nodes())
+
+#LoadBalancer = lb_get_driver(LBProvider.GCE)
+#lb_driver = LoadBalancer(    SERVICE_ACCOUNT_USERNAME,
+#    SERVICE_ACCOUNT_CREDENTIALS_JSON_FILE_PATH,
+#    project=PROJECT_ID,
+#    datacenter="us-central1-c")
+
+#print(lb_driver.list_protocols())
 
 #images = driver.list_images()
 #sizes = driver.list_sizes()
@@ -56,7 +69,7 @@ driver = ComputeEngine(
 #print([x for x in sizes if "f1-micro" in x.name])
 #print(nodes)
 
-nodes = driver.list_nodes()
+#nodes = driver.list_nodes()
 
 #print(dir(nodes[0]))
-print(nodes[0].extra)
+#print(nodes[0].extra)

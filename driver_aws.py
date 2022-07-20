@@ -20,10 +20,13 @@ cls = get_driver(Provider.EC2)
 driver = cls(ACCESS_ID, SECRET_KEY, region="us-east-1")
 
 nodes = driver.list_nodes()
+#print(nodes)
+print([x for x in nodes if "pokeapi" in x.name][0])
 
-filter_nodes = [x for x in nodes if x.state.value == "running"]
+driver.start_node([x for x in nodes if "pokeapi" in x.name][0])
+#filter_nodes = [x for x in nodes if x.state.value == "running"]
 
-print(filter_nodes[0].extra)
+#print(filter_nodes[0].extra)
 
 #key_pair = driver.create_key_pair(name="my-key-pair-7")
 
