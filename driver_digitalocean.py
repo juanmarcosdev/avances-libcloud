@@ -5,7 +5,11 @@ import os
 
 cls = get_driver(Provider.DIGITAL_OCEAN)
 
-driver = cls("dop_v1_376aa997353f4781d7008dfeb5e50263010ee681f513e2c72ed99f8bd5454b38", api_version="v2")
+config = dotenv_values(".env")
+
+DIGITAL_OCEAN = config["DIGITAL_OCEAN"]
+
+driver = cls(DIGITAL_OCEAN, api_version="v2")
 
 PRIVATE_SSH_KEY_PATH = os.path.expanduser("~/.ssh/id_rsa_droplet")
 

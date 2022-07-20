@@ -130,3 +130,6 @@ dmypy.json
 
 # JSON for Google key
 *.json
+
+# PEM for pem
+*.pem
